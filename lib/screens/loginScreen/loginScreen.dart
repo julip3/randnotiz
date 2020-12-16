@@ -5,9 +5,10 @@ import 'package:randnotiz/screens/notesScreen/notesScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
-final database = Firestore.instance;
-class LoginScreen extends StatelessWidget {
+FirebaseFirestore firestore = FirebaseFirestore.instance;
+User user = FirebaseAuth.instance.currentUser;
 
+class LoginScreen extends StatelessWidget {
   Future<String> _createUser(LoginData data) async {
     print('Name: ${data.name}, Password: ${data.password}');
 
@@ -18,49 +19,48 @@ class LoginScreen extends StatelessWidget {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
-        return('The password provided is too weak.');
+        return ('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
-        return('The account already exists for that email.');
-      }else {
+        return ('The account already exists for that email.');
+      } else {
         print(e.code);
-        return(e.code);
+        return (e.code);
       }
     }
-    User user = FirebaseAuth.instance.currentUser;
-    if (!user.emailVerified) {
-      await user.sendEmailVerification();
-      print('Please check ur email to verify ur account');
-      return('Please check ur email to verify ur account');
-    }
+    await user.sendEmailVerification();
+    firestore
+        .collection('users')
+        .doc(user.uid)
+        .collection("noteCategory")
+        .doc("default Category")
+        .collection("notes")
+        .add({"title": "Le Title", "text": "data"}).catchError((e) {
+      print(e);
+    });
   }
 
   Future<String> _authUser(LoginData data) async {
     print('Name: ${data.name}, Password: ${data.password}');
     try {
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: data.name,
-          password: data.password
-      );
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+              email: data.name, password: data.password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
-        return('No user found for that email.');
+        return ('No user found for that email.');
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
-        return('Wrong password provided for that user.');
-      }else {
+        return ('Wrong password provided for that user.');
+      } else {
         print(e.code);
-        return(e.code);
+        return (e.code);
       }
     }
-    User user = FirebaseAuth.instance.currentUser;
-    database.collection('UserData').add({"user":user.tenantId}).catchError((e) {
-      print(e);
-    });
     if (!user.emailVerified) {
       print('Please check ur email to verify ur account');
-      return('Please check ur email to verify ur account');
+      return ('Please check ur email to verify ur account');
     }
   }
 

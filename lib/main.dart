@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:randnotiz/screens/loginScreen/loginScreen.dart';
@@ -7,7 +8,6 @@ void main() => {WidgetsFlutterBinding.ensureInitialized(), runApp(MyApp())};
 class MyApp extends StatelessWidget {
   // Create the initialization Future outside of `build`:
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(

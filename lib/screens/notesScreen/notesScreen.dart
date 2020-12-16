@@ -3,6 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:intl/intl.dart';
 import 'package:randnotiz/bloc/notes_bloc.dart';
 import 'package:randnotiz/bloc/notes_event.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NotesScreen extends StatefulWidget {
   @override
@@ -10,6 +11,7 @@ class NotesScreen extends StatefulWidget {
 }
 
 bool a = true;
+CollectionReference users = FirebaseFirestore.instance.collection('users');
 
 class _NotesScreenState extends State<NotesScreen> {
   final _bloc = NotesBloc();

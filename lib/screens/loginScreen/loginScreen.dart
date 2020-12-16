@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 FirebaseAuth auth = FirebaseAuth.instance;
 
 class LoginScreen extends StatelessWidget {
-  Duration get loginTime => Duration(milliseconds: 2250);
 
   Future<String> _createUser(LoginData data) async {
     print('Name: ${data.name}, Password: ${data.password}');
@@ -22,13 +21,16 @@ class LoginScreen extends StatelessWidget {
       } else if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
         return('The account already exists for that email.');
+      }else {
+        print(e.code);
+        return(e.code);
       }
-    } catch (e) {
-      print(e);
     }
     User user = FirebaseAuth.instance.currentUser;
     if (!user.emailVerified) {
       await user.sendEmailVerification();
+      print('Please check ur email to verify ur account');
+      return('Please check ur email to verify ur account');
     }
   }
 
@@ -46,16 +48,20 @@ class LoginScreen extends StatelessWidget {
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
         return('Wrong password provided for that user.');
+      }else {
+        print(e.code);
+        return(e.code);
       }
     }
     User user = FirebaseAuth.instance.currentUser;
     if (!user.emailVerified) {
-      await user.sendEmailVerification();
+      print('Please check ur email to verify ur account');
+      return('Please check ur email to verify ur account');
     }
   }
 
   Future<String> _recoverPassword(String name) {
-    print('Name: $name');
+    //TODO sent recover password code to email
   }
 
   @override

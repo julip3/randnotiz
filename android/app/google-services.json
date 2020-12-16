@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "211818392805",
+    "firebase_url": "https://randnotiz-f7c4b.firebaseio.com",
+    "project_id": "randnotiz-f7c4b",
+    "storage_bucket": "randnotiz-f7c4b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:211818392805:android:779d5b2f2afda581f1780c",
+        "android_client_info": {
+          "package_name": "com.example.randnotiz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "211818392805-963ste4thvefv2a4kd81jsiqrptf46v4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABX1Qc15kIFJsb2w1Mav-eZVFn4ZZNSus"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "211818392805-963ste4thvefv2a4kd81jsiqrptf46v4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
